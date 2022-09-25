@@ -1,0 +1,11 @@
+# Compiled Sources
+*.exe
+*.o
+
+# Temp Files 
+tempCodeRunnerFile.cpp
+
+# Private Files
+
+# Folders
+Resources/
