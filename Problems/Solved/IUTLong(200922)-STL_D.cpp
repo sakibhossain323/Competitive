@@ -9,11 +9,28 @@ using ll = long long;
 
 void solve(int tcase)
 {
-    int n;
-    cin >> n;
+
+    // int n;
+    // cin >> n;
 
     //
+    string s, t;
+    cin >> s >> t;
 
+    set <int> chrs;
+    int len = s.length();
+    for(int i = 0; i < len; i++) chrs.insert(s[i]);
+
+    bool ans = false;
+    for(int i = 0; i < len; i++)
+    {
+        if(chrs.count(t[i]))
+        {
+            ans = true;
+            break;
+        }
+    }
+    cout << ((ans)? "YES": "NO") << endl;
 
     //printf("Case #%d: %d\n", tcase, n);
 }
@@ -30,6 +47,7 @@ int main ()
     // freopen("output.txt", "w", stdout);
     // #endif
 
+    // freopen("overcode.in", "r", stdin);
  
 //----------------------------------------------------------------
 
@@ -38,9 +56,7 @@ int main ()
     cin >> t;
     for(int tcase = 1; tcase <= t; tcase++) solve(tcase);
     
-
-//----------------------------------------------------------------
-
+    
     //
     
     

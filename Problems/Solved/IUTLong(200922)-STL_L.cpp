@@ -13,6 +13,24 @@ void solve(int tcase)
     cin >> n;
 
     //
+    vector <int> ratin(n);
+    for(int i = 0; i < n; i++) cin >> ratin[i];
+    sort(ratin.begin(), ratin.end());
+
+    vector <int> team(n);
+    for(int i = 0; i < n; i++)
+    {
+        int teamCount = 0;
+        for(int j = i; j+5 < n; j++)
+        {
+            if(ratin[j+5]-ratin[j] <= 1000) teamCount++, j+=5;
+        }
+        team[i] = teamCount;
+    }
+
+    int maxteam = 0;
+    for(int i = 0; i < n; i++) maxteam = max(team[i], maxteam);
+    cout << maxteam << endl;
 
 
     //printf("Case #%d: %d\n", tcase, n);
@@ -30,6 +48,7 @@ int main ()
     // freopen("output.txt", "w", stdout);
     // #endif
 
+    freopen("overcode.in", "r", stdin);
  
 //----------------------------------------------------------------
 
