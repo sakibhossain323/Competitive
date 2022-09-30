@@ -19,7 +19,7 @@ void solve(int tcase)
     a[0] = d[0];
     for(int i = 1; i < n; i++)
     {
-        if(d[i]!= 0 && a[i-1] - d[i] > 0)
+        if(d[i]!= 0 && a[i-1] - d[i] >= 0)
         {
             cout << -1 << endl;
             return;
