@@ -1,11 +1,2 @@
 5
-abacaba
-zyxaabcaabkjh
-onetwothree
-threetwoone
-one
-zzonneyy
-one
-none
-twenty
-ten
+1 2 3 4 5
