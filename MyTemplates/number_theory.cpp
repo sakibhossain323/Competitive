@@ -11,8 +11,8 @@ vector <int> primes;
 
 void sieve()
 {
-    isprime[2] = true;
-    for(int i = 3; i < MAX; i+=2) isprime[i] = true;
+    for(int i = 2; i < MAX; i++) isprime[i] = true;
+    
     for(int i = 2; i*i < MAX; i++)
     {
         if(isprime[i])
@@ -22,6 +22,29 @@ void sieve()
     }
 
     for(int i = 1; i < MAX; i++) if(isprime[i]) primes.push_back(i);
+}
+
+
+vector <pair<int,int>> prime_factorize(int n)
+{
+    vector <pair<int,int>> primepows;
+
+    for(int i: primes)
+    {
+        int cur_pow = 0;
+        if(i*i > n) break;
+        while(n%i==0)
+        {
+            cur_pow++;
+            n/=i;
+        }
+
+        if(cur_pow) primepows.emplace_back(i, cur_pow);
+    }
+
+    if(n != 1) primepows.emplace_back(n, 1);
+
+    return primepows;
 }
 
 
