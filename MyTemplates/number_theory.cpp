@@ -25,9 +25,9 @@ void sieve()
 }
 
 
-vector <pair<int,int>> prime_factorize(int n)
+vector <pair<ll, int>> prime_factorize(ll n)
 {
-    vector <pair<int,int>> primepows;
+    vector <pair<ll, int>> primepows;
 
     for(int i: primes)
     {
@@ -43,6 +43,46 @@ vector <pair<int,int>> prime_factorize(int n)
     }
 
     if(n != 1) primepows.emplace_back(n, 1);
+
+    return primepows;
+}
+
+//-------------------------------------------------------------------------
+
+int spf[MAX];
+
+void sieve_spf()
+{
+    for(int i = 1; i < MAX; i++) spf[i] = i;
+    
+    for(int i = 2; i*i < MAX; i++)
+    {
+        if(spf[i] == i)
+        {
+            for(int j = i*i; j < MAX; j+=i)
+            {
+                if(spf[j] == j) spf[j] = i;
+            }
+        }
+    }
+}
+
+
+vector<pair<int,int>> fastPrime_factorize(int n)
+{
+    vector<pair<int,int>> primepows;
+
+    while(n!=1)
+    {
+        int cur_pow = 0, cur_prime = spf[n];
+        while(n % cur_prime == 0)
+        {
+            cur_pow++;
+            n/=cur_prime;
+        }
+
+        if(cur_pow) primepows.emplace_back(cur_prime, cur_pow);
+    }
 
     return primepows;
 }
