@@ -3,7 +3,8 @@ using namespace std;
 
 using ll = long long;
 #define MOD 1000000007
-#define MAX 10001
+#define MAX 1001
+
 
 
 #define valid(row,col) row>=1 && row<MAX && col>=1 && col<MAX
