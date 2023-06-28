@@ -1,25 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 using ll = long long;
-#define caseout(n) cout << "Case " << n << ": "
 #define nln "\n"
+#define caseout(n) cout << "Case " << n << ": "
+
 
 #define MOD 1000000007
-#define MAX 1000001
+#define MAX 100001
+
 
 
 
 
 void solve(int tcase)
 {
-    int n;
+    ll  n;
     cin >> n;
-    
-    vector <int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
 
+    // ll m;
+    // cin >> m;
+
+
+    // vector <ll> a(n);
+    // for(int i= 0; i < n; i++) cin >> a[i];
+
+
+    caseout(tcase) << n*n;
+
+
+    cout << nln;
     
 }
 
@@ -39,6 +49,9 @@ int main ()
     
     local_io();
 
+    //---------------------------------------------------
+    
+    
 
     //---------------------------------------------------
 

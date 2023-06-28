@@ -1,6 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+using ll = long long;
+#define nln "\n"
+#define caseout(n) cout << "Case " << n << ": "
+
+
+#define MOD 1000000007
+#define MAX 100001
+
+
 void get_cppv()
 {
     if (__cplusplus == 201703L) cout << "C++17\n";
@@ -10,13 +19,15 @@ void get_cppv()
     else cout << "pre-standard C++\n";
 }
 
+
+
+
+
 int main ()
 {
     get_cppv();
     
 
-    cout << (1^2^3^4^5) << endl;
-    
 
     return 0;
 }
