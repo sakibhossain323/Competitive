@@ -1,3 +1,5 @@
+// https://www.spoj.com/problems/RMQSQ/
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -10,7 +12,26 @@ const ll MOD = 1e9+7;
 const int MAX = 1e5+1;
 
 
+ll spars[MAX][18];
 
+void build(vector<ll> &a)
+{
+    int n = a.size();
+    for(int i = 0; i < n; i++) spars[i][0] = a[i];
+    for(int p = 1; p <= 18; p++)
+    {
+        for(int i = 0; i+(1<<p) <= n; i++)
+        {
+            spars[i][p] = min(spars[i][p-1], spars[i + (1 << (p-1))][p-1]);
+        }
+    }
+}
+
+ll query(int l, int r)
+{
+    int p = 31 - __builtin_clz(r-l+1);
+    return min(spars[l][p], spars[r-(1<<p)+1][p]);
+}
 
 
 void solve(int tcase)
@@ -18,15 +39,24 @@ void solve(int tcase)
     ll  n;
     cin >> n;
 
-    // ll m;
-    // cin >> m;
+    // ll k;
+    // cin >> k;
 
 
-    // vector <ll> a(n);
-    // for(int i= 0; i < n; i++) cin >> a[i];
+    vector <ll> a(n);
+    for(int i= 0; i < n; i++) cin >> a[i];
 
-
-    caseout(tcase) << n*n;
+    
+    build(a);
+    
+    ll q;
+    cin >> q;
+    while(q--)
+    {
+        ll l, r;
+        cin >> l >> r;
+        cout << query(l, r) << nln;
+    }    
 
 
     cout << nln;
@@ -56,7 +86,7 @@ signed main ()
     //---------------------------------------------------
 
     int t = 1;
-    cin >> t;
+    // cin >> t;
     for(int tcase = 1; tcase <= t; tcase++) solve(tcase);
 
     return 0;
