@@ -69,12 +69,21 @@ void solve(int tcase)
     vector <ll> a(n);
     for(int i= 0; i < n; i++) cin >> a[i];
 
+
+//------ Alternative Solution(As there's no update query) ---------------
+    // vector <ll> prexor(n+1);
+    // for(int i = 1; i <= n; i++) prexor[i] = (prexor[i-1] ^ a[i-1]);
+//-----------------------------------------------------------------------
+
+
     build(a);
     while(q--)
     {
-        ll a, b;
-        cin >> a >> b;
-        cout << query(a, b, 1, n) << nln;
+        ll l, r;
+        cin >> l >> r;
+        cout << query(l, r, 1, n) << nln;
+        
+        // cout << (prexor[l-1] ^ prexor[r]) << nln;
     }
 
 
