@@ -1,5 +1,3 @@
-// Problem: Range Update Queries (https://cses.fi/problemset/task/1651)
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -59,66 +57,10 @@ void update(int l, int r, ll val, int b, int e, int v = 1)
 }
 
 
-void solve(int tcase)
-{
-    ll  n;
-    cin >> n;
-
-    ll q;
-    cin >> q;
-
-
-    vector <ll> a(n);
-    for(int i= 0; i < n; i++) cin >> a[i];
-
-    build(a);
-    while(q--)
-    {
-        ll typ;
-        cin >> typ;
-        if(typ == 2)
-        {
-            ll k;
-            cin >> k;
-            cout << query(k, k, 1, n) << nln;
-        }
-        else
-        {
-            ll l, r, val;
-            cin >> l >> r >> val;
-            update(l, r, val, 1, n);
-        }
-    }
-    
-    cout << nln;
-    
-}
-
-
-void local_io()
-{
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-    #endif
-}
 
 signed main ()
 {
-    ios_base::sync_with_stdio(false); cin.tie(nullptr);
-    //--------------------------------------------------
     
-    local_io();
-
-    //---------------------------------------------------
-    
-    
-
-    //---------------------------------------------------
-
-    int t = 1;
-    // cin >> t;
-    for(int tcase = 1; tcase <= t; tcase++) solve(tcase);
 
     return 0;
 }

@@ -1,4 +1,4 @@
-// Problem: Range Update Queries (https://cses.fi/problemset/task/1651)
+// Problem: Horrible Queries (https://www.spoj.com/problems/HORRIBLE/)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -12,24 +12,7 @@ const ll MOD = 1e9+7;
 const int MAX = 2e5+1;
 
 
-
 ll tree[4*MAX], lazy[4*MAX];
-
-void build(vector<ll>&a, int b = 0, int e = -1, int v=1)
-{
-    if(e == -1) e = a.size()-1;
-
-    if(b == e)
-    {
-        tree[v] = a[b];
-        return;
-    }
-    
-    int mid = (b+e)/2;
-    build(a, b, mid, 2*v);
-    build(a, mid+1, e,2*v+1);
-    tree[v] = tree[2*v] + tree[2*v+1];
-}
 
 ll query(int l, int r, int b, int e, int v=1, ll carry = 0)
 {
@@ -58,6 +41,20 @@ void update(int l, int r, ll val, int b, int e, int v = 1)
     tree[v] = tree[2*v] + tree[2*v+1]+ (e-b+1)*lazy[v];
 }
 
+void clear(int b, int e, int v=1)
+{
+    if(b == e)
+    {
+        tree[v] = 0, lazy[v] = 0;
+        return;
+    }
+    
+    int mid = (b+e)/2;
+    clear(b, mid, 2*v);
+    clear(mid+1, e,2*v+1);
+    tree[v] = 0, lazy[v] = 0;
+}
+
 
 void solve(int tcase)
 {
@@ -68,29 +65,26 @@ void solve(int tcase)
     cin >> q;
 
 
-    vector <ll> a(n);
-    for(int i= 0; i < n; i++) cin >> a[i];
+    // vector <ll> a(n);
+    // for(int i= 0; i < n; i++) cin >> a[i];
 
-    build(a);
+    
     while(q--)
     {
-        ll typ;
-        cin >> typ;
-        if(typ == 2)
-        {
-            ll k;
-            cin >> k;
-            cout << query(k, k, 1, n) << nln;
-        }
+        ll typ, l, r;
+        cin >> typ >> l >> r;
+        if(typ) cout << query(l, r, 1, n) << nln;
         else
         {
-            ll l, r, val;
-            cin >> l >> r >> val;
+            ll val;
+            cin >> val;
             update(l, r, val, 1, n);
         }
+        
     }
-    
-    cout << nln;
+    clear(1, n);
+
+    // cout << nln;
     
 }
 
@@ -117,7 +111,7 @@ signed main ()
     //---------------------------------------------------
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     for(int tcase = 1; tcase <= t; tcase++) solve(tcase);
 
     return 0;
