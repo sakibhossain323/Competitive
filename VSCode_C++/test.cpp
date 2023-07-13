@@ -6,8 +6,8 @@ using ll = long long;
 #define caseout(n) cout << "Case " << n << ": "
 
 
-#define MOD 1000000007
-#define MAX 100001
+const ll MOD = 1e9+7;
+const int MAX = 2e5+1;
 
 
 void get_cppv()
@@ -27,7 +27,7 @@ int main ()
 {
     get_cppv();
     
-
+    
 
     return 0;
 }
