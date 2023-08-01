@@ -7,27 +7,42 @@ using ll = long long;
 
 
 const ll MOD = 1e9+7;
-const int MAX = 1e7+1;
+const int MAX = 2e5+1;
 
 
-
-
+bool cmp(pair<ll, ll>&i, pair<ll, ll> &j)
+{
+    if(i.first == j.first) return i.second < j.second;
+    return i.first > j.first;
+}
 
 void solve(int tcase)
 {
     ll  n;
     cin >> n;
 
-    // ll m;
-    // cin >> m;
+    ll k;
+    cin >> k;
 
 
-    // vector <ll> a(n);
-    // for(int i= 0; i < n; i++) cin >> a[i];
+    vector <ll> a(n);
+    for(int i= 0; i < n; i++) cin >> a[i];
 
     
-    caseout(tcase)  << n*n;
+    vector<pair<ll, ll>> dead, rem;
+    for(int i = 0; i < n; i++)
+    {
+        if(a[i]%k && a[i] > k) rem.push_back({a[i]%k, i+1});
+        else if(a[i] < k) dead.push_back({a[i], i+1});
+        else dead.push_back({k, i+1});
+    }
+    
+    sort(dead.begin(), dead.end(), cmp);
+    sort(rem.begin(), rem.end(), cmp);
 
+    for(auto ptr: dead) cout << ptr.second << " ";
+    for(auto ptr: rem) cout << ptr.second << " ";
+        
 
     cout << nln;
     

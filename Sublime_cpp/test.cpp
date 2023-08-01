@@ -16,7 +16,7 @@ const int MAX = 2e5+1;
 int main ()
 {
     cout << "testing..." << nln;
-    
+
     
 
     return 0;
