@@ -2,35 +2,38 @@
 using namespace std;
 
 using ll = long long;
-#define MOD 1000000007
-#define MAX 10001
+#define caseout(n) cout << "Case " << n << ": "
+
+const ll MOD = 1e9+7;//998244353;
+const ll INF = 1e18;
+const int MAX =1e5+5;
 
 
 using pll = pair<ll, ll>;
-vector <pll> adj[MAX];
-vector <ll> dist(MAX, INT64_MAX);
-vector <ll> parent(MAX, -1);
+vector<pll> adj[MAX];
+vector<ll> dist(MAX, INF);
+vector<ll> par(MAX, -1);
  
 void dijkstra(int src)
 {
     dist[src] = 0;
-    priority_queue <pll, vector<pll>, greater<pll>> pq;
+    priority_queue<pll, vector<pll>, greater<pll>> pq;
     pq.push({0, src});
+ 
     while(!pq.empty())
     {
-        ll curDist = pq.top().first, curNode = pq.top().second;
+        auto [d, u] = pq.top();
         pq.pop();
  
-        if(curDist > dist[curNode]) continue;
+        if(d > dist[u]) continue;
  
-        for(auto nxt: adj[curNode])
+        for(auto &[v, w]: adj[u])
         {
-            ll nxtNode = nxt.first, nxtDist = nxt.second+curDist;
-            if(nxtDist < dist[nxtNode])
+            if(dist[u]+w < dist[v])
             {
-                dist[nxtNode] = nxtDist;
-                parent[nxtNode] = curNode;
-                pq.push({nxtDist, nxtNode});
+                dist[v] = dist[u]+w;
+                par[v] = u; 
+                pq.push({dist[v], v});
             }
         }
     }
