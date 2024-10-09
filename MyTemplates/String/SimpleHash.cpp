@@ -16,26 +16,41 @@ const int MAX = 2e5+5;
 
 class Hash {
 private:
-    ll b = 26;
+    ll n, b = 26;
     vector<ll> p;
     vector<ll> h;
+    vector<ll> rh;
 public:
-    Hash(string &s)
+    Hash(string &s) // 1-indexed
     {
-        ll n = s.size();
-        p.resize(n+1, 1);
-        h.resize(n+1);
+        n = s.size();
+        p.resize(n+2, 1);
+        h.resize(n+2);
+        rh.resize(n+2);
         for(int i = 1; i <= n; i++)
         {
             p[i] = (p[i-1]*b)%MOD;
             h[i] = (h[i-1]*b)%MOD; 
             (h[i]+= s[i-1]-'a')%=MOD;
         }
+
+        for(int i = n; i >= 1; i--)
+        {
+            rh[i] = (rh[i+1]*b)%MOD; 
+            (rh[i]+= s[i-1]-'a')%=MOD;
+        }
     }
 
-    ll getHash(ll l, ll r) // 1-indexed
+    ll getHash(ll l, ll r)
     {
         ll val = h[r] - (h[l-1]*p[r-l+1])%MOD;
+        (val+=MOD)%=MOD;
+        return val;
+    }
+
+    ll getRevHash(ll l, ll r)
+    {
+        ll val = rh[l] - (rh[r+1]*p[r-l+1])%MOD;
         (val+=MOD)%=MOD;
         return val;
     }
