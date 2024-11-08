@@ -18,8 +18,10 @@ private:
     ST *tree, identity;
     ST (*merge) (ST, ST);
 
-    LZ *lazy, unmark;
-    void (*mergeLazy)(int, int, LZ&, LZ);
+    LZ *lazy, identityLazy;
+    // marks [l, r] for lazy updates
+    void (*markLazy)(int, int, LZ&, LZ);
+    // applies pending updates for [l, r]
     void (*applyLazy)(int, int, ST&, LZ);
 
     void  build(vector<ST> &arr, int lo, int hi, int cur=1)
@@ -41,10 +43,10 @@ private:
         if(lo < hi)
         {
             int mid = (lo+hi)/2, left = 2*cur, right = 2*cur+1;
-            mergeLazy(lo, mid, lazy[left], lazy[cur]);
-            mergeLazy(mid+1, hi, lazy[right], lazy[cur]);
+            markLazy(lo, mid, lazy[left], lazy[cur]);
+            markLazy(mid+1, hi, lazy[right], lazy[cur]);
         }
-        lazy[cur] = unmark;
+        lazy[cur] = identityLazy;
     }
 
     void update(int from, int upto, LZ delta, int lo, int hi, int cur=1)
@@ -55,7 +57,7 @@ private:
         if(from > hi or upto < lo) return;
         if(from<= lo and upto >= hi)
         {
-            mergeLazy(lo, hi, lazy[cur], delta);
+            markLazy(lo, hi, lazy[cur], delta);
             propagate(lo, hi, cur);
             return;
         }
@@ -81,14 +83,14 @@ private:
 public:
     SegmentTree(
         vector<ST> arr, ST (*merge) (ST, ST), ST identity,
-        void (*mergeLazy)(int, int, LZ&, LZ),
-        void (*applyLazy)(int, int, ST&, LZ), LZ unmark
+        void (*markLazy)(int, int, LZ&, LZ),
+        void (*applyLazy)(int, int, ST&, LZ), LZ identityLazy
     ): 
     n(arr.size()), tree(new ST[n * 4]), identity(identity), merge(merge),
-    lazy(new LZ[n * 4]), unmark(unmark), mergeLazy(mergeLazy), applyLazy(applyLazy)
+    lazy(new LZ[n * 4]), identityLazy(identityLazy), markLazy(markLazy), applyLazy(applyLazy)
     {
         build(arr, 1, n);
-        fill(lazy, lazy+n*4, unmark);
+        fill(lazy, lazy+n*4, identityLazy);
     }
 
     void update(int from, int upto, LZ delta)
